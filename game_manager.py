@@ -13,9 +13,10 @@ class GameManager:
     def compare_answer(self,answer,score):
         is_found = False
         counter = 0
-        for found_state in self.found_states:
-            if answer.lower() == found_state.lower():
+
+        if any(answer.lower() == found_state.lower() for found_state in self.found_states):
                 return False,"","",score
+
         for state_name in self.data_dict['state'].values():
             if answer.lower() == state_name.lower():
                 is_found = True
@@ -26,6 +27,7 @@ class GameManager:
                 score += 1
                 break
             counter += 1
+
         return is_found,self.state_name,self.state_position,score
     @staticmethod
     def create_state(text,state_pos):
